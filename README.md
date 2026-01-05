@@ -1,2 +1,269 @@
-# Web-Trading
-https://webcv-prod-832473.biela.dev
+
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools - Modern Elegant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(ellipse at top, #0f172a 0%, #020617 60%);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }.hidden { display: none; }
+
+.page {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+  animation: fadeIn 0.5s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  background: rgba(2, 6, 23, 0.65);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,.75), inset 0 0 0 1px rgba(255,255,255,0.03);
+  backdrop-filter: blur(12px);
+  padding: 32px 28px 36px 28px;
+}
+
+.title {
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  font-size: 40px;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 40%, #e0f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 3.2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 0px rgba(96,165,250,.2)); }
+  50% { filter: drop-shadow(0 0 12px rgba(96,165,250,.35)); }
+  100% { filter: drop-shadow(0 0 0px rgba(96,165,250,.2)); }
+}
+
+.btn {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .25s ease;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #f8fafc;
+  box-shadow: 0 10px 24px -6px rgba(37,99,235,.45);
+}
+
+.btn:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 14px 32px -6px rgba(37,99,235,.55);
+}
+
+.btn-secondary {
+  background: rgba(15,23,42,0.6);
+  color: #e5e7eb;
+  border: 1px solid rgba(148,163,184,.25);
+  box-shadow: 0 6px 18px -6px rgba(0,0,0,.45);
+}
+
+.btn-secondary:hover {
+  background: rgba(30,41,59,.85);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.stack { display: grid; gap: 14px; }
+
+/* Termux-like area */
+.terminal {
+  background: #020617;
+  border-radius: 18px;
+  border: 1px solid rgba(59,130,246,0.3);
+  padding: 16px;
+  min-height: 320px;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 14px;
+  color: #e5e7eb;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 20px 40px -12px rgba(0,0,0,.8);
+  position: relative;
+}
+
+.terminal-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #1e293b;
+}
+
+.terminal-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.45;
+}
+
+.prompt { color: #38bdf8; }
+.input-line {
+  display: inline-block;
+  min-width: 6px;
+  border-right: 2px solid #38bdf8;
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret { 50% { border-color: transparent; } }
+
+.note {
+  margin-top: 16px;
+  font-size: 12.5px;
+  color: #a5b4fc;
+  opacity: .9;
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+  <!-- HOME PAGE -->
+  <main id="home" class="page">
+    <div class="card">
+      <h1 class="title">TOOLS</h1>
+      <div class="stack">
+        <button class="btn" onclick="goto('dashboard')">Masuk</button>
+      </div>
+    </div>
+  </main>  <!-- DASHBOARD PAGE -->  <section id="dashboard" class="page hidden">
+    <div class="card">
+      <div class="stack">
+        <button class="btn-secondary" onclick="back('home')">Kembali</button>
+        <button class="btn" onclick="goto('termux')">Termux</button>
+      </div>
+    </div>
+  </section>  <!-- TERMUX PAGE -->  <section id="termux" class="page hidden">
+    <div class="card">
+      <div class="stack">
+        <button class="btn-secondary" onclick="back('dashboard')">Kembali</button>
+        <div class="terminal" id="terminal">
+          <div class="terminal-header">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <div class="terminal-content" id="terminal-content"></div>
+        </div>
+      </div>
+      <p class="note">Ini adalah simulasi tampilan Termux modern di web (bukan aplikasi Termux asli). Kamu bisa mengetik perintah dasar.</p>
+    </div>
+  </section>  <script>
+    const pages = ['home', 'dashboard', 'termux'];
+
+    function hideAll() {
+      pages.forEach(id => document.getElementById(id).classList.add('hidden'));
+    }
+
+    function goto(id) {
+      hideAll();
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function back(id) {
+      goto(id);
+    }
+
+    // Simple Termux-like behavior
+    const termContent = document.getElementById('terminal-content');
+    let history = [];
+
+    function print(line) {
+      termContent.innerHTML += line + "\n";
+      termContent.scrollTop = termContent.scrollHeight;
+    }
+
+    function newPrompt() {
+      print('<span class="prompt">~ $</span> <span class="input-line" id="cursor"></span>');
+    }
+
+    function handleCommand(cmd) {
+      const lower = cmd.trim().toLowerCase();
+      if (!lower) { return; }
+
+      switch(lower) {
+        case 'help':
+          print('Perintah tersedia: help, clear, about, languages');
+          break;
+        case 'about':
+          print('Simulasi Termux Web — tampilan elegan modern.');
+          break;
+        case 'clear':
+          termContent.innerHTML = '';
+          break;
+        case 'languages':
+          print('Bahasa pemrograman populer: Python, JavaScript, C, C++, Java, Go, Rust, PHP, Ruby, Kotlin, Dart, dll.');
+          print('Catatan: Browser tidak bisa mengunduh & memasang semua bahasa secara otomatis.');
+          break;
+        default:
+          print('Command tidak dikenal: ' + cmd);
+      }
+    }
+
+    // keyboard listener
+    let buffer = '';
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('termux').classList.contains('hidden')) return;
+
+      // prevent default on some keys
+      if (['Tab'].includes(e.key)) e.preventDefault();
+
+      if (e.key === 'Enter') {
+        document.getElementById('cursor')?.remove();
+        print('');
+        handleCommand(buffer);
+        history.push(buffer);
+        buffer = '';
+        newPrompt();
+        return;
+      }
+
+      if (e.key === 'Backspace') {
+        buffer = buffer.slice(0, -1);
+        updateCursor();
+        return;
+      }
+
+      if (e.key.length === 1) {
+        buffer += e.key;
+        updateCursor();
+      }
+    });
+
+    function updateCursor() {
+      const cursor = document.getElementById('cursor');
+      if (cursor) cursor.textContent = buffer;
+    }
+
+    // initialize
+    print('Selamat datang di simulasi Termux web. Ketik "help" untuk melihat perintah.');
+    newPrompt();
+  </script></body>
+</html>
